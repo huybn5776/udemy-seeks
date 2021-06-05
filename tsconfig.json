@@ -1,0 +1,25 @@
+{
+  "extends": "@tsconfig/svelte/tsconfig.json",
+  "compilerOptions": {
+    "target": "es2020",
+    "types": [
+      "node",
+      "svelte"
+    ],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "strict": true
+  },
+  "include": [
+    "src/**/*",
+    "src/node_modules",
+    "**/*.svelte"
+  ],
+  "exclude": [
+    "node_modules/*",
+    "__sapper__/*",
+    "public/*"
+  ]
+}
