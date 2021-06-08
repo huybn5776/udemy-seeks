@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "Udemy seeks",
+  "version": "1.0",
+  "description": "Fast forward to next caption, or any other timing.",
+  "homepage_url": "https://github.com/huybn5776/udemy-seeks",
+  "icons": {
+    "32": "icons/udemy-seek-32.png",
+    "64": "icons/udemy-seek-64.png",
+    "128": "icons/udemy-seek-128.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "@udemy-seeks"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.udemy.com/*"
+      ],
+      "js": [
+        "build/content-script.js"
+      ]
+    }
+  ],
+  "permissions": [
+    "storage",
+    "*://*.udemycdn.com/*"
+  ]
+}
