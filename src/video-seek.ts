@@ -1,3 +1,4 @@
+import { handleActionMessage } from './actions/action-message';
 import { commandManager } from './commands/command-manager';
 import type { VttCue } from './interfaces/vtt-cue';
 import type { Subscription } from './observable';
@@ -27,6 +28,7 @@ export class VideoSeek {
       commandManager.onCommand('seekForwardLong', () => this.seekVideoTime(60)),
       commandManager.onCommand('seekBackwardLong', () => this.seekVideoTime(-60)),
       commandManager.onCommand('copyCaption', () => this.copyCaption()),
+      handleActionMessage('jumpToTime', ({ seconds }) => this.gotoTime(seconds)),
     ];
     this.makeCaptionSelectable();
   }

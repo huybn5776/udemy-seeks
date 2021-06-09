@@ -1,4 +1,6 @@
-import { initializeHotkey } from './command-manager';
+import { handleActionMessage } from './actions/action-message';
+import { initializeHotkey } from './commands/command-manager';
+import { VideoCaptionState } from './enums/video-caption-state';
 import type { Caption, LectureData } from './interfaces/lecture-data';
 import { getCourseId, getCurrentLectureId, getSelectedCaptionVideoLabel } from './page-content-getter';
 import { viewerContentChange, waitForVideoElement, waitForViewerContent } from './page-mutation-listener';
@@ -9,6 +11,9 @@ import { VideoSeek } from './video-seek';
 (async () => {
   let videoViewerApp: VideoSeek | null = null;
   let videoBookmarkManager: VideoBookmarkManager | null = null;
+  let state: VideoCaptionState = VideoCaptionState.loading;
+
+  handleActionMessage('getVideoCaptionState', () => state);
 
   initializeHotkey();
   await waitForViewerContent();
@@ -21,7 +26,7 @@ import { VideoSeek } from './video-seek';
 
     const lectureData = await getLectureData(getCourseId(), getCurrentLectureId());
     if (!lectureData.asset?.captions?.length) {
-      // this course doesn't have any captions
+      state = VideoCaptionState.noCaption;
       return;
     }
     const video = await waitForVideoElement();
@@ -29,9 +34,10 @@ import { VideoSeek } from './video-seek';
     const localeLabel = getSelectedCaptionVideoLabel();
     const caption = findCaptionWithLabel(lectureData, localeLabel);
     if (!caption) {
-      // use doesn't enabled caption, or logic error
+      state = VideoCaptionState.noCaption;
       return;
     }
+    state = VideoCaptionState.ready;
     const vttCues = await getCaptionCues(caption.url);
     videoViewerApp = new VideoSeek(video, vttCues);
     videoBookmarkManager = new VideoBookmarkManager(video, vttCues);

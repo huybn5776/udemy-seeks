@@ -68,4 +68,15 @@ export default [
     plugins: [...plugins, css({ output: 'content-script.css' })],
     watch: { clearScreen: false },
   },
+  {
+    input: 'src/popup.ts',
+    output: {
+      sourcemap: true,
+      format: 'iife',
+      name: 'app',
+      file: 'public/build/popup.js',
+    },
+    plugins: [...plugins, css({ output: 'popup.css' })],
+    watch: { clearScreen: false },
+  },
 ];

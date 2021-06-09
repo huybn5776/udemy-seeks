@@ -1,0 +1,43 @@
+.bookmark-list {
+  min-height: 190px;
+}
+
+.bookmark-list-header {
+  margin-top: 0;
+  font-size: 15px;
+}
+
+.bookmark-item {
+  display: grid;
+  grid-template-columns: 32px 52px 1fr;
+  padding: 4px 0;
+  font-size: 14px;
+
+  &:not(.bookmark-item-header) {
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f4f4f4;
+    }
+  }
+}
+
+.bookmark-item-header {
+  color: dimgray;
+  font-size: 12px;
+  border-bottom: 1px solid lightgray;
+  cursor: initial;
+  user-select: none;
+}
+
+.bookmark-description {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.empty-bookmark-label {
+  margin: 4px 0 0;
+  color: gray;
+  font-size: 14px;
+}
