@@ -34,7 +34,7 @@ import { VideoSeek } from './video-seek';
     }
     const vttCues = await getCaptionCues(caption.url);
     videoViewerApp = new VideoSeek(video, vttCues);
-    videoBookmarkManager = new VideoBookmarkManager(video);
+    videoBookmarkManager = new VideoBookmarkManager(video, vttCues);
   };
 
   viewerContentChange.subscribe(() => initial());
