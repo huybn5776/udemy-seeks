@@ -32,15 +32,6 @@ function serve() {
 }
 
 const plugins = [
-  svelte({
-    compilerOptions: {
-      dev: !production,
-    },
-    preprocess: {
-      ...autoPreprocess(),
-      style: sass(),
-    },
-  }),
   typescript({
     sourceMap: !production,
     inlineSources: !production,
@@ -65,7 +56,19 @@ export default [
       name: 'app',
       file: 'public/build/content-script.js',
     },
-    plugins: [...plugins, css({ output: 'content-script.css' })],
+    plugins: [
+      svelte({
+        compilerOptions: {
+          dev: !production,
+        },
+        preprocess: {
+          ...autoPreprocess(),
+          style: sass(),
+        },
+        emitCss: false,
+      }),
+      ...plugins,
+    ],
     watch: { clearScreen: false },
   },
   {
@@ -76,7 +79,19 @@ export default [
       name: 'app',
       file: 'public/build/popup.js',
     },
-    plugins: [...plugins, css({ output: 'popup.css' })],
+    plugins: [
+      svelte({
+        compilerOptions: {
+          dev: !production,
+        },
+        preprocess: {
+          ...autoPreprocess(),
+          style: sass(),
+        },
+      }),
+      css({ output: 'popup.css' }),
+      ...plugins,
+    ],
     watch: { clearScreen: false },
   },
 ];
