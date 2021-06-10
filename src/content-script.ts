@@ -1,4 +1,5 @@
-import { handleActionMessage } from './actions/action-message';
+import { popupActions } from './actions';
+import { handleActionMessage, sendMessageToRuntime } from './actions/action-message';
 import { initializeHotkey } from './commands/command-manager';
 import { VideoCaptionState } from './enums/video-caption-state';
 import type { Caption, LectureData } from './interfaces/lecture-data';
@@ -14,6 +15,7 @@ import { VideoSeek } from './video-seek';
   let state: VideoCaptionState = VideoCaptionState.loading;
 
   handleActionMessage('getVideoCaptionState', () => state);
+  sendMessageToRuntime(popupActions.reloadPopup());
 
   initializeHotkey();
   await waitForViewerContent();
@@ -41,6 +43,8 @@ import { VideoSeek } from './video-seek';
     const vttCues = await getCaptionCues(caption.url);
     videoViewerApp = new VideoSeek(video, vttCues);
     videoBookmarkManager = new VideoBookmarkManager(video, vttCues);
+
+    sendMessageToRuntime(popupActions.reloadPopup());
   };
 
   viewerContentChange.subscribe(() => initial());

@@ -16,7 +16,11 @@ export async function sendMessageToContext<T extends string, R>(message: ActionC
 }
 
 export async function sendMessageToRuntime<T extends string, R>(message: ActionCreator<T> & RetType<R>): Promise<R> {
-  return browser.runtime.sendMessage(message);
+  return browser.runtime.sendMessage(message).catch((error) => {
+    if (!`${error}`.includes('Receiving end does not exist')) {
+      throw error;
+    }
+  });
 }
 
 export function handleActionMessage<T extends keyof ActionCreators, AC extends ActionCreators[T], V = ReturnType<AC>>(

@@ -1,17 +1,35 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
 
   import { contextActions } from '../actions';
-  import { sendMessageToContext } from '../actions/action-message';
+  import { handleActionMessage, sendMessageToContext } from '../actions/action-message';
   import { VideoCaptionState } from '../enums/video-caption-state';
+  import type { Subscription } from '../observable';
   import VideoBookmarkList from './VideoBookmarkList.svelte';
   import VideoCaptionStateView from './VideoCaptionStateView.svelte';
 
   let captionState: VideoCaptionState | null = null;
+  let subscriptions: Subscription[] = [];
 
   onMount(async () => {
-    captionState = await sendMessageToContext(contextActions.getVideoCaptionState());
+    updateState();
+
+    subscriptions = [
+      handleActionMessage('reloadPopup', () => {
+        updateState();
+      }),
+    ];
   });
+
+  onDestroy(() => {
+    for (const subscription of subscriptions) {
+      subscription.unsubscribe();
+    }
+  });
+
+  async function updateState(): Promise<void> {
+    captionState = await sendMessageToContext(contextActions.getVideoCaptionState());
+  }
 </script>
 
 <div class="popup-container">
