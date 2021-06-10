@@ -1,0 +1,21 @@
+.progress-bookmark {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: gray;
+  background-color: rgba(gray, .8);
+  border-radius: 50% 50% 50% 0;
+  transform: translate(-50%, -150%) rotate(-45deg);
+  cursor: pointer;
+}
+
+.progress-bookmark-label {
+  display: block;
+  color: white;
+  font-size: 12px;
+  transform: rotate(45deg);
+}

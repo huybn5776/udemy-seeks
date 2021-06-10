@@ -46,3 +46,10 @@ export function getVideoPlayButton(): HTMLButtonElement | null {
 export function getGoToNextButton(): HTMLElement | null {
   return document.querySelector<HTMLElement>('[data-purpose=go-to-next]');
 }
+
+export function getVideoProgressBar(): HTMLElement | null {
+  const videoProgressBar = document.querySelector('[data-purpose=video-progress-bar]');
+  return Array.from(videoProgressBar?.children || []).find((element) =>
+    element.className.includes('progress-bar--progress-holder'),
+  ) as HTMLElement | null;
+}
