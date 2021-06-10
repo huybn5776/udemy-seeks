@@ -22,23 +22,23 @@ export const videoBookmarkCommands = {
     description: 'Jump to video bookmark #5',
   } as CommandInfo,
   setVideoBookmark1: {
-    suggestedKey: { windows: 'ctrl+shift+1', macOs: 'command+shift+1' },
+    suggestedKey: { windows: 'ctrl+shift+1', macOs: 'option+shift+1' },
     description: 'Set video bookmark #1',
   } as CommandInfo,
   setVideoBookmark2: {
-    suggestedKey: { windows: 'ctrl+shift+2', macOs: 'command+shift+2' },
+    suggestedKey: { windows: 'ctrl+shift+2', macOs: 'option+shift+2' },
     description: 'Set video bookmark #2',
   } as CommandInfo,
   setVideoBookmark3: {
-    suggestedKey: { windows: 'ctrl+shift+3', macOs: 'command+shift+3' },
+    suggestedKey: { windows: 'ctrl+shift+3', macOs: 'option+shift+3' },
     description: 'Set video bookmark #3',
   } as CommandInfo,
   setVideoBookmark4: {
-    suggestedKey: { windows: 'ctrl+shift+4', macOs: 'command+shift+4' },
+    suggestedKey: { windows: 'ctrl+shift+4', macOs: 'option+shift+4' },
     description: 'Set video bookmark #4',
   } as CommandInfo,
   setVideoBookmark5: {
-    suggestedKey: { windows: 'ctrl+shift+5', macOs: 'command+shift+5' },
+    suggestedKey: { windows: 'ctrl+shift+5', macOs: 'option+shift+5' },
     description: 'Set video bookmark #5',
   } as CommandInfo,
 };
