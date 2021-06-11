@@ -3,5 +3,6 @@ export interface CommandInfo {
     windows: string;
     macOs: string;
   };
+  title:string;
   description: string;
 }
