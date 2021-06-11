@@ -94,4 +94,27 @@ export default [
     ],
     watch: { clearScreen: false },
   },
+  {
+    input: 'src/options-page.ts',
+    output: {
+      sourcemap: true,
+      format: 'iife',
+      name: 'app',
+      file: 'public/build/options-page.js',
+    },
+    plugins: [
+      svelte({
+        compilerOptions: {
+          dev: !production,
+        },
+        preprocess: {
+          ...autoPreprocess(),
+          style: sass(),
+        },
+      }),
+      css({ output: 'options-page.css' }),
+      ...plugins,
+    ],
+    watch: { clearScreen: false },
+  },
 ];

@@ -55,7 +55,19 @@ export function initializeHotkey(): void {
   }
 }
 
-const getPlatform = (() => {
+export function getDefaultKeybindings(): Record<CommandType, string> {
+  const keybindingsMap = {} as Record<CommandType, string>;
+
+  const platform = getPlatform();
+  for (const entry of Object.entries(commands)) {
+    const command = entry[0] as CommandType;
+    keybindingsMap[command] = entry[1].suggestedKey[platform];
+  }
+
+  return keybindingsMap;
+}
+
+export const getPlatform = (() => {
   let platform: Platform | null = null;
   return () => {
     if (platform) {

@@ -1,0 +1,21 @@
+.clear-button {
+  position: absolute;
+  top: 15%;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+  padding: 0;
+  color: var(--text-color-secondary);
+  font-size: 15px;
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  aspect-ratio: 1;
+
+  &:hover {
+    background-color: rgba(gray, .4);
+  }
+}

@@ -21,6 +21,9 @@
     "default_title": "Udemy seeks",
     "default_popup": "popup.html"
   },
+  "options_ui": {
+    "page": "options-page.html"
+  },
   "content_scripts": [
     {
       "matches": [
