@@ -17,15 +17,15 @@
     cursor: pointer;
 
     &:hover {
-      background-color: #f4f4f4;
+      background-color: rgba(gray, .2);
     }
   }
 }
 
 .bookmark-item-header {
-  color: dimgray;
+  color: var(--text-color-secondary);
   font-size: 12px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid var(--border-color);
   cursor: initial;
   user-select: none;
 }

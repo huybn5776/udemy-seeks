@@ -41,8 +41,5 @@
 </div>
 
 <style lang="scss">
-  .popup-container {
-    width: 320px;
-    padding: 8px;
-  }
+  @import 'Popup';
 </style>

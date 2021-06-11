@@ -30,7 +30,7 @@
 
   .state-description {
     margin: 4px 0;
-    color: gray;
+    color: var(--text-color-secondary);
     font-size: 14px;
   }
 </style>
