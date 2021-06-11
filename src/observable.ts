@@ -2,7 +2,7 @@
  * Simplified version of RxJS
  */
 export interface Observable<T> {
-  subscribe: (observer: Observer<T>) => Subscription;
+  subscribe: (next: ObserverNext<T>, complete?: () => void) => Subscription;
 }
 
 export interface Subscription {
@@ -11,6 +11,7 @@ export interface Subscription {
 
 interface Subscriber<T> {
   next: (value: T) => void;
+  complete: () => void;
 }
 
 export interface Subject<T> extends Observable<T> {
@@ -19,7 +20,13 @@ export interface Subject<T> extends Observable<T> {
   complete(): void;
 }
 
-type Observer<T> = (value: T) => void;
+interface Observer<T> {
+  next: ObserverNext<T>;
+  complete?: () => void;
+}
+
+type ObserverNext<T> = (value: T) => void;
+
 type TeardownLogic = () => void | undefined;
 
 export function createObservable<T>(
@@ -28,17 +35,28 @@ export function createObservable<T>(
   let observers: Observer<T>[] = [];
   let teardownLogic: TeardownLogic | null = null;
   let next: (value: T) => void;
+  let complete: () => void;
 
   return {
-    subscribe: (observer: Observer<T>) => {
+    subscribe: (observerNext: ObserverNext<T>, observerComplete?: () => void) => {
+      const observer = { next: observerNext, complete: observerComplete };
       observers = [...observers, observer];
+
       if (observers.length === 1) {
         next = (value) => {
           for (const o of observers) {
-            o(value);
+            o.next(value);
           }
         };
-        const teardown = subscribe({ next });
+        complete = () => {
+          for (const o of observers) {
+            o.complete?.();
+          }
+          observers = [];
+          teardownLogic?.();
+        };
+
+        const teardown = subscribe({ next, complete });
         if (teardown instanceof Promise) {
           teardown.then((t) => {
             teardownLogic = t;
@@ -69,13 +87,17 @@ export function createSubject<T>(): Subject<T> {
   return {
     next: (value) => {
       for (const observer of observers) {
-        observer(value);
+        observer.next(value);
       }
     },
     complete: () => {
+      for (const observer of observers) {
+        observer.complete?.();
+      }
       observers = [];
     },
-    subscribe: (observer: Observer<T>) => {
+    subscribe: (observerNext: ObserverNext<T>, observerComplete?: () => void) => {
+      const observer = { next: observerNext, complete: observerComplete };
       observers = [...observers, observer];
       return {
         unsubscribe: () => {
