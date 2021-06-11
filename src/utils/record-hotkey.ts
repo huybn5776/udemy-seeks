@@ -1,8 +1,11 @@
+import { getPlatform } from '../commands/command-manager';
 import { createObservable } from '../observable';
 import type { Observable } from '../observable';
 
 export function recordHotkey(): Observable<string> {
   const modifierKeys = ['Control', 'Alt', 'Shift', 'Meta'];
+  const platform = getPlatform();
+  const altOrOption = platform === 'macOs' ? 'option' : 'alt';
 
   return createObservable((subscriber) => {
     const listener: (event: KeyboardEvent) => void = (event) => {
@@ -23,7 +26,7 @@ export function recordHotkey(): Observable<string> {
       const shortcutKeys = [
         event.ctrlKey ? 'ctrl' : '',
         event.metaKey ? 'command' : '',
-        event.altKey ? 'alt' : '',
+        event.altKey ? altOrOption : '',
         event.shiftKey ? 'shift' : '',
         keyName,
       ]
