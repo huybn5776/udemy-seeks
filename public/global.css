@@ -4,6 +4,7 @@
     --text-color-secondary: lightgray;
     --background-color: #23222a;
     --border-color: #77777d;
+    --hover-backgrond-color: dimgray;
   }
 }
 
@@ -13,6 +14,7 @@
     --text-color-secondary: dimgray;
     --background-color: white;
     --border-color: #9f9eae;
+    --hover-backgrond-color: lightgray;
   }
 }
 

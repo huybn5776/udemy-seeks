@@ -4,3 +4,33 @@
   color: var(--text-color);
   background-color: var(--background-color);
 }
+
+.open-options-button {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--hover-backgrond-color);
+  }
+}
+
+.cog-icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: var(--text-color);
+  -webkit-mask-image: url('/icons/cog.svg');
+  -webkit-mask-size: 16px 16px;
+  -webkit-mask-repeat: no-repeat;
+}

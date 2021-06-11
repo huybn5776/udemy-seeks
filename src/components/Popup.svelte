@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
+  import { browser } from 'webextension-polyfill-ts';
 
   import { contextActions } from '../actions';
   import { handleActionMessage, sendMessageToContext } from '../actions/action-message';
@@ -30,6 +31,11 @@
   async function updateState(): Promise<void> {
     captionState = await sendMessageToContext(contextActions.getVideoCaptionState());
   }
+
+  function openOptionsPage(): void {
+    browser.runtime.openOptionsPage();
+    window.close();
+  }
 </script>
 
 <div class="popup-container">
@@ -38,6 +44,10 @@
   {:else}
     <VideoCaptionStateView state={captionState} />
   {/if}
+
+  <button class="open-options-button" on:click={openOptionsPage}>
+   <i class="cog-icon"></i>
+  </button>
 </div>
 
 <style lang="scss">
