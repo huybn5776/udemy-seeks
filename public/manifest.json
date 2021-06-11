@@ -24,7 +24,7 @@
   "content_scripts": [
     {
       "matches": [
-        "*://www.udemy.com/*"
+        "*://www.udemy.com/course/*"
       ],
       "js": [
         "build/content-script.js"
