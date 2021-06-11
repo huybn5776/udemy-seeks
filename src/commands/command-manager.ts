@@ -3,6 +3,7 @@ import Mousetrap from 'mousetrap';
 import type { Command } from '../interfaces/command';
 import type { CommandInfo } from '../interfaces/command-info';
 import type { Subscription } from '../observable';
+import { getKeybindings } from '../utils/storage-utils';
 import { commands } from './index';
 
 export type CommandHandler<T> = (value: T) => void;
@@ -39,11 +40,14 @@ export const commandManager = (() => {
   return { dispatch, onCommand, removeHandler };
 })();
 
-export function initializeHotkey(): void {
-  const platform = getPlatform();
+export async function initializeHotkey(): Promise<void> {
+  const keybindings = (await getKeybindings()) || getDefaultKeybindings();
+  const hotkeys = (Object.entries(keybindings) as [[CommandType, string]])
+    .map(([type, hotkey]) => ({ type, hotkey }))
+    .filter(({ hotkey }) => !!hotkey);
 
-  for (const [type, info] of Object.entries(commands) as [[CommandType, CommandInfo]]) {
-    Mousetrap.bind(info.suggestedKey[platform], (event) => {
+  for (const { type, hotkey } of hotkeys) {
+    Mousetrap.bind(hotkey, (event) => {
       if (isFocusingAnyInputElement()) {
         return;
       }

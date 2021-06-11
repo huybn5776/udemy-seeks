@@ -17,7 +17,7 @@ import { VideoSeek } from './video-seek';
   handleActionMessage('getVideoCaptionState', () => state);
   sendMessageToRuntime(popupActions.reloadPopup());
 
-  initializeHotkey();
+  await initializeHotkey();
   await waitForViewerContent();
 
   const initial: () => Promise<void> = async () => {

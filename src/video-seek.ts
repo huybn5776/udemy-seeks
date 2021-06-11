@@ -1,5 +1,6 @@
 import { handleActionMessage } from './actions/action-message';
 import { commandManager } from './commands/command-manager';
+import { defaultSettings } from './const/default-settings';
 import type { VttCue } from './interfaces/vtt-cue';
 import type { Subscription } from './observable';
 import {
@@ -9,10 +10,13 @@ import {
   getVideoPlayButton,
 } from './page-content-getter';
 import { findNextCaption, findPreviousCaption } from './utils/find-caption-cue';
+import { getSettings } from './utils/storage-utils';
 import { roundSeconds } from './utils/string-utils';
 
 export class VideoSeek {
   subscriptions: Subscription[] = [];
+  mediumSeekSeconds = defaultSettings.mediumSeekSeconds;
+  longSeekSeconds = defaultSettings.longSeekSeconds;
 
   constructor(private readonly video: HTMLVideoElement, private readonly vttCues: VttCue[]) {
     this.initialize();
@@ -23,13 +27,17 @@ export class VideoSeek {
       ...this.subscriptions,
       commandManager.onCommand('seekForwardCaption', () => this.gotoCaptionCueInOffset(1)),
       commandManager.onCommand('seekBackwardCaption', () => this.gotoCaptionCueInOffset(-1)),
-      commandManager.onCommand('seekForwardMedium', () => this.seekVideoTime(10)),
-      commandManager.onCommand('seekBackwardMedium', () => this.seekVideoTime(-10)),
-      commandManager.onCommand('seekForwardLong', () => this.seekVideoTime(60)),
-      commandManager.onCommand('seekBackwardLong', () => this.seekVideoTime(-60)),
+      commandManager.onCommand('seekForwardMedium', () => this.seekVideoTime(this.mediumSeekSeconds)),
+      commandManager.onCommand('seekBackwardMedium', () => this.seekVideoTime(-this.mediumSeekSeconds)),
+      commandManager.onCommand('seekForwardLong', () => this.seekVideoTime(this.longSeekSeconds)),
+      commandManager.onCommand('seekBackwardLong', () => this.seekVideoTime(-this.longSeekSeconds)),
       commandManager.onCommand('copyCaption', () => this.copyCaption()),
       handleActionMessage('jumpToTime', ({ seconds }) => this.gotoTime(seconds)),
     ];
+    getSettings().then((settings) => {
+      this.mediumSeekSeconds = settings.mediumSeekSeconds;
+      this.longSeekSeconds = settings.longSeekSeconds;
+    });
     this.makeCaptionSelectable();
   }
 
