@@ -2,32 +2,32 @@ import type { CommandInfo } from '../interfaces/command-info';
 
 export const videoSeekCommands = {
   seekForwardCaption: {
-    suggestedKey: { windows: 'alt+right', macOs: 'command+right' },
+    suggestedKey: { windows: 'ctrl+right', macOs: 'command+right' },
     title: 'Seek to next caption',
     description: `Seek to next caption's start time.`,
   } as CommandInfo,
   seekBackwardCaption: {
-    suggestedKey: { windows: 'alt+right', macOs: 'command+left' },
+    suggestedKey: { windows: 'ctrl+left', macOs: 'command+left' },
     title: 'Seek to previous caption',
     description: `Seek to previous caption's start time.`,
   } as CommandInfo,
   seekForwardMedium: {
-    suggestedKey: { windows: 'ctrl+right', macOs: 'command+shift+right' },
+    suggestedKey: { windows: 'ctrl+shift+right', macOs: 'command+shift+right' },
     title: 'Medium forward jump',
     description: 'Jump 10 seconds forward',
   } as CommandInfo,
   seekBackwardMedium: {
-    suggestedKey: { windows: 'ctrl+left', macOs: 'command+shift+left' },
+    suggestedKey: { windows: 'ctrl+shift+left', macOs: 'command+shift+left' },
     title: 'Medium backward jump',
     description: 'Jump 10 seconds back',
   } as CommandInfo,
   seekForwardLong: {
-    suggestedKey: { windows: 'ctrl+alt+right', macOs: 'command+ctrl+shift+right' },
+    suggestedKey: { windows: 'ctrl+alt+shift+right', macOs: 'command+ctrl+shift+right' },
     title: 'Long forward jump',
     description: 'Jump 1 minute forward.',
   } as CommandInfo,
   seekBackwardLong: {
-    suggestedKey: { windows: 'ctrl+alt+left', macOs: 'command+ctrl+shift+left' },
+    suggestedKey: { windows: 'ctrl+alt+shift+left', macOs: 'command+ctrl+shift+left' },
     title: 'Long backward jump',
     description: 'Jump 1 minute back.',
   } as CommandInfo,
