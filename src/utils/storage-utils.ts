@@ -1,7 +1,7 @@
 import { browser } from 'webextension-polyfill-ts';
 
 import type { Settings } from '../interfaces/settings';
-import type { StorageValue } from '../interfaces/StorageValue';
+import type { StorageValue } from '../interfaces/storage-value';
 
 export async function getSettings(): Promise<Settings> {
   return (await browser.storage.local.get('settings')).settings as Settings;

@@ -10,7 +10,7 @@ import { VideoBookmarkManager } from './video-bookmark-manager';
 import { VideoSeek } from './video-seek';
 
 (async () => {
-  let videoViewerApp: VideoSeek | null = null;
+  let videoSeek: VideoSeek | null = null;
   let videoBookmarkManager: VideoBookmarkManager | null = null;
   let state: VideoCaptionState = VideoCaptionState.loading;
 
@@ -21,8 +21,8 @@ import { VideoSeek } from './video-seek';
   await waitForViewerContent();
 
   const initial: () => Promise<void> = async () => {
-    videoViewerApp?.dispose();
-    videoViewerApp = null;
+    videoSeek?.dispose();
+    videoSeek = null;
     videoBookmarkManager?.dispose();
     videoBookmarkManager = null;
 
@@ -41,7 +41,7 @@ import { VideoSeek } from './video-seek';
     }
     state = VideoCaptionState.ready;
     const vttCues = await getCaptionCues(caption.url);
-    videoViewerApp = new VideoSeek(video, vttCues);
+    videoSeek = new VideoSeek(video, vttCues);
     videoBookmarkManager = new VideoBookmarkManager(video, vttCues);
 
     sendMessageToRuntime(popupActions.reloadPopup());
