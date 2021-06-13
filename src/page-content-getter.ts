@@ -53,3 +53,7 @@ export function getVideoProgressBar(): HTMLElement | null {
     element.className.includes('progress-bar--progress-holder'),
   ) as HTMLElement | null;
 }
+
+export function getControlBar(): HTMLElement | null {
+  return document.querySelector('[data-purpose=video-control-bar]');
+}

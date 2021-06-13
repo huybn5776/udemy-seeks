@@ -23,6 +23,7 @@
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  height: 32px;
   margin: 4px 2px;
   font-size: 15px;
 
@@ -32,11 +33,18 @@
     font-size: 15px;
   }
 
-  & :global(.setting-input) {
+  & :global(.setting-input[type=text]),
+  & :global(.setting-input[type=number]) {
     margin: 0;
     color: inherit;
     background-color: transparent;
     border-color: var(--border-color);
     border-radius: 4px;
+  }
+
+  & :global(.setting-input[type=checkbox]) {
+    width: min-content;
+    height: min-content;
+    margin: auto 0 auto 6px;
   }
 }

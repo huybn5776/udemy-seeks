@@ -51,6 +51,16 @@
     <h2 class="section-title">Seek settings</h2>
 
     <div class="setting-row">
+      <label for="always-show-controls" class="setting-label">Always show video controls</label>
+      <input
+        id="always-show-controls"
+        class="setting-input"
+        type="checkbox"
+        bind:checked={$settingsStore.alwaysShowControls}
+      />
+    </div>
+
+    <div class="setting-row">
       <label for="medium-seek" class="setting-label">Medium jump seconds</label>
       <input
         id="medium-seek"
