@@ -1,5 +1,5 @@
 import SeekCaptionButton from './components/SeekCaptionButton.svelte';
-import { getSettings } from './utils/storage-utils';
+import { getSettings } from './utils/preference-utils';
 
 export class VideoControls {
   seekCaptionButton: SeekCaptionButton | null = null;

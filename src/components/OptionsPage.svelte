@@ -9,7 +9,8 @@
   import { defaultSettings } from '../const/default-settings';
   import type { Settings } from '../interfaces/settings';
   import { debounceTime } from '../utils/debounce-time';
-  import { getStorageValue, saveKeybindings, saveSettings } from '../utils/storage-utils';
+  import { saveKeybindings, saveSettings } from '../utils/preference-utils';
+  import { getStorageValue } from '../utils/storage-utils';
   import HotkeyInput from './HotkeyInput.svelte';
 
   let settingsStore: Writable<Settings> = writable(defaultSettings);

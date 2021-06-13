@@ -3,7 +3,7 @@ import Mousetrap from 'mousetrap';
 import type { Command } from '../interfaces/command';
 import type { CommandInfo } from '../interfaces/command-info';
 import type { Subscription } from '../observable';
-import { getKeybindings } from '../utils/storage-utils';
+import { getKeybindingsFromStorage } from '../utils/storage-utils';
 import { commands } from './index';
 
 export type CommandHandler<T> = (value: T) => void;
@@ -41,7 +41,7 @@ export const commandManager = (() => {
 })();
 
 export async function initializeHotkey(): Promise<void> {
-  const keybindings = (await getKeybindings()) || getDefaultKeybindings();
+  const keybindings = (await getKeybindingsFromStorage()) || getDefaultKeybindings();
   const hotkeys = (Object.entries(keybindings) as [[CommandType, string]])
     .map(([type, hotkey]) => ({ type, hotkey }))
     .filter(({ hotkey }) => !!hotkey);

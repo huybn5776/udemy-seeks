@@ -10,7 +10,7 @@ import {
   getVideoPlayButton,
 } from './page-content-getter';
 import { findNextCaption, findPreviousCaption } from './utils/find-caption-cue';
-import { getSettings } from './utils/storage-utils';
+import { getSettings } from './utils/preference-utils';
 import { roundSeconds } from './utils/string-utils';
 
 export class VideoSeek {
