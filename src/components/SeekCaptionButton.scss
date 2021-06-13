@@ -1,0 +1,29 @@
+.seek-caption-button {
+  position: relative;
+  width: 3em;
+  height: 3em;
+  margin-right: 4px;
+  padding: 0;
+  background: none;
+  border: 0;
+  opacity: .8;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  & .udi {
+    font-size: 1.8em;
+  }
+
+  & .udi-exp-skip-forward {
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 40% 50%, 40% 100%, 0 100%);
+  }
+
+  & .udi-closed-caption {
+    position: absolute;
+    right: 4px;
+    bottom: 4px;
+    font-size: 1.2em;
+  }
+}

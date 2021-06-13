@@ -1,6 +1,9 @@
+import SeekCaptionButton from './components/SeekCaptionButton.svelte';
 import { getSettings } from './utils/storage-utils';
 
 export class VideoControls {
+  seekCaptionButton: SeekCaptionButton | null = null;
+
   constructor(private readonly controlBar: HTMLElement) {
     this.initialize();
   }
@@ -11,6 +14,8 @@ export class VideoControls {
     if (settings.alwaysShowControls) {
       this.fixControlBar();
     }
+
+    this.insertSeekCaptionButton();
   }
 
   fixControlBar(): void {
@@ -24,6 +29,19 @@ export class VideoControls {
     (controlBarContainer as HTMLElement).style.cssText = 'opacity: 1 !important';
   }
 
+  insertSeekCaptionButton(): void {
+    const videoControls = document.querySelector('[data-purpose=video-controls]');
+    if (!videoControls) {
+      return;
+    }
+    const progressDisplay = videoControls.querySelector('[data-purpose=progress-display]');
+
+    this.seekCaptionButton = new SeekCaptionButton({ target: videoControls });
+    const seekCaptionButtonElement = videoControls.children[videoControls.children.length - 1];
+    videoControls.insertBefore(seekCaptionButtonElement, progressDisplay);
+  }
+
   dispose(): void {
+    this.seekCaptionButton?.$destroy();
   }
 }
