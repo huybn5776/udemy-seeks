@@ -67,7 +67,7 @@
         id="medium-seek"
         class="setting-input"
         type="number"
-        placeholder={defaultSettings.mediumSeekSeconds}
+        placeholder={`${defaultSettings.mediumSeekSeconds}`}
         bind:value={$settingsStore.mediumSeekSeconds}
       />
     </div>
@@ -78,7 +78,7 @@
         id="long-seek"
         class="setting-input"
         type="number"
-        placeholder={defaultSettings.longSeekSeconds}
+        placeholder={`${defaultSettings.longSeekSeconds}`}
         bind:value={$settingsStore.longSeekSeconds}
       />
     </div>

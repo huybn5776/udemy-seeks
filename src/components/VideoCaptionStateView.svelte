@@ -1,20 +1,18 @@
 <script lang="ts">
   import { VideoCaptionState } from '../enums/video-caption-state';
 
-  const titles = {
-    null: 'This extension only work on udemy site.',
+  const titles: Record<VideoCaptionState, string> = {
     [VideoCaptionState.loading]: 'Loading...',
     [VideoCaptionState.ready]: 'Caption loaded.',
     [VideoCaptionState.noCaption]: 'No caption loaded',
   };
-  const descriptions = {
-    null: 'Please open/switch to udemy tab and try again.',
+  const descriptions: Partial<Record<VideoCaptionState, string>> = {
     [VideoCaptionState.loading]: 'fetching lecture data and captions.',
   };
   export let state: VideoCaptionState | null = null;
 
-  $: title = titles[state || null] || '';
-  $: description = descriptions[state || null] || '';
+  $: title = (state && titles[state]) || 'This extension only work on udemy site.';
+  $: description = (state && descriptions[state]) || 'Please open/switch to udemy tab and try again.';
 </script>
 
 <h3 class="state-title">{title}</h3>

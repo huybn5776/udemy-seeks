@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "rollup -c",
+    "build": "svelte-check & rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear",
     "start:firefox": "web-ext run --source-dir ./public/"
@@ -46,6 +46,7 @@
     "stylelint-config-recess-order": "^2.4.0",
     "stylelint-order": "^4.1.0",
     "stylelint-scss": "^3.19.0",
+    "svelte-check": "^2.1.0",
     "svelte-preprocess": "^4.7.3",
     "svelte-preprocess-sass": "^1.0.0",
     "tslib": "^2.2.0",
