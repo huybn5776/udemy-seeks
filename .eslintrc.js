@@ -5,16 +5,12 @@ module.exports = {
   },
   extends: [
     'airbnb-typescript',
-    'airbnb/hooks',
     'plugin:@typescript-eslint/recommended',
     'prettier',
     'plugin:prettier/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
     ecmaVersion: 2020,
     sourceType: 'module',
     project: './tsconfig.json',
@@ -38,7 +34,7 @@ module.exports = {
         groups: ['builtin', 'external', 'internal'],
         pathGroups: [
           {
-            pattern: 'react',
+            pattern: 'svelte.*',
             group: 'external',
             position: 'before',
           },
@@ -52,7 +48,7 @@ module.exports = {
             patternOptions: { matchBase: true },
           },
         ],
-        pathGroupsExcludedImportTypes: ['react'],
+        pathGroupsExcludedImportTypes: ['svelte'],
         'newlines-between': 'always',
         alphabetize: {
           order: 'asc',
@@ -75,7 +71,6 @@ module.exports = {
     'no-restricted-syntax': 0,
     'no-useless-return': 1,
     'prettier/prettier': 0,
-    'react/jsx-props-no-spreading': 0,
     semi: [2, 'always'],
 
     'jsx-a11y/click-events-have-key-events': 0,
