@@ -1,0 +1,9 @@
+.vjs-controls-enabled.vjs-user-inactive [data-purpose='video-control-bar'] .progress-bar-only {
+  transform: translateY(calc(100% - 1.5em));
+  opacity: .6 !important;
+  transition: opacity 1s, transform .5s !important;
+}
+
+.vjs-controls-enabled [data-purpose='video-control-bar'] .always-show-progress-bar {
+  opacity: 1 !important;
+}

@@ -61,6 +61,17 @@
       />
     </div>
 
+    <div class="setting-row second-level" class:disabled={!$settingsStore.alwaysShowControls}>
+      <label for="always-show-controls-with-progress-bar-only" class="setting-label">Show progress bar only</label>
+      <input
+        id="always-show-controls-with-progress-bar-only"
+        class="setting-input"
+        type="checkbox"
+        bind:checked={$settingsStore.alwaysShowControlsWithProgressBarOnly}
+        disabled={!$settingsStore.alwaysShowControls}
+      />
+    </div>
+
     <div class="setting-row">
       <label for="medium-seek" class="setting-label">Medium jump seconds</label>
       <input

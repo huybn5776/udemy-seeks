@@ -1,4 +1,5 @@
 import SeekCaptionButton from './components/SeekCaptionButton.svelte';
+import type { Settings } from './interfaces/settings';
 import { getSettings } from './utils/preference-utils';
 
 export class VideoControls {
@@ -11,22 +12,27 @@ export class VideoControls {
   async initialize(): Promise<void> {
     const settings = await getSettings();
 
-    if (settings.alwaysShowControls) {
-      this.fixControlBar();
-    }
+    this.handleAlwaysShowControls(settings);
 
     this.insertSeekCaptionButton();
   }
 
-  fixControlBar(): void {
+  handleAlwaysShowControls(settings: Settings): void {
+    if (!settings.alwaysShowControls) {
+      return;
+    }
     const controlBarContainer = Array.from(this.controlBar.children).find((element) =>
       element.className.includes('control-bar-container'),
-    );
+    ) as HTMLElement | null;
     if (!controlBarContainer) {
       throw new Error('Cannot find Control bar container.');
     }
 
-    (controlBarContainer as HTMLElement).style.cssText = 'opacity: 1 !important';
+    if (settings.alwaysShowControlsWithProgressBarOnly) {
+      controlBarContainer.classList.add('progress-bar-only');
+    } else {
+      controlBarContainer.classList.add('always-show-progress-bar');
+    }
   }
 
   insertSeekCaptionButton(): void {

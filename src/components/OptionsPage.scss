@@ -27,6 +27,14 @@
   margin: 4px 2px;
   font-size: 15px;
 
+  &.disabled {
+    opacity: .4;
+  }
+
+  &.second-level :global(.setting-label) {
+    margin-left: 24px;
+  }
+
   & :global(.setting-label) {
     display: flex;
     align-items: center;
