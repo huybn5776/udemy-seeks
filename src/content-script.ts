@@ -30,7 +30,8 @@ import { VideoSeek } from './video-seek';
     videoControls?.dispose();
     videoControls = null;
 
-    const lectureData = await getLectureData(getCourseId(), getCurrentLectureId());
+    const lectureId = getCurrentLectureId();
+    const lectureData = await getLectureData(getCourseId(), lectureId);
     if (!lectureData.asset?.captions?.length) {
       state = VideoCaptionState.noCaption;
       return;
@@ -46,7 +47,7 @@ import { VideoSeek } from './video-seek';
     state = VideoCaptionState.ready;
     const vttCues = await getCaptionCues(caption.url);
     videoSeek = new VideoSeek(video, vttCues);
-    videoBookmarkManager = new VideoBookmarkManager(video, vttCues);
+    videoBookmarkManager = new VideoBookmarkManager(video, vttCues, lectureId);
 
     const controlBar = getControlBar();
     if (controlBar) {

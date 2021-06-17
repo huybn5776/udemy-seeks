@@ -4,15 +4,20 @@ import ProgressBookmark from './components/ProgressBookmark.svelte';
 import type { VideoBookmark } from './interfaces/video-bookmark';
 import type { VttCue } from './interfaces/vtt-cue';
 import type { Subscription } from './observable';
-import { getVideoProgressBar } from './page-content-getter';
+import { getVideoPauseButton, getVideoPlayButton, getVideoProgressBar } from './page-content-getter';
 import { findEnclosingCaption } from './utils/find-caption-cue';
+import { getTemporaryBookmarksFromStorage, saveTemporaryBookmarks } from './utils/storage-utils';
 
 export class VideoBookmarkManager {
   bookmarksMap: Record<string, VideoBookmark> = {};
   subscriptions: Subscription[] = [];
   progressBookmark: ProgressBookmark | null = null;
 
-  constructor(private readonly video: HTMLVideoElement, private readonly vttCues: VttCue[]) {
+  constructor(
+    private readonly video: HTMLVideoElement,
+    private readonly vttCues: VttCue[],
+    private readonly lectureId: number,
+  ) {
     this.initialize();
   }
 
@@ -36,12 +41,31 @@ export class VideoBookmarkManager {
     ];
 
     this.insertProgressBookmarkComponent();
+    this.loadTemporaryBookmarks();
   }
 
   jumpToBookmark(key: string): void {
     const bookmark = this.bookmarksMap[key];
-    if (bookmark !== undefined) {
-      this.video.currentTime = bookmark.seconds;
+    if (bookmark === undefined) {
+      return;
+    }
+    const lastTime = this.video.currentTime;
+    const { seconds } = bookmark;
+
+    this.video.currentTime = seconds;
+    this.video.dispatchEvent(new Event('timeupdate'));
+    if (seconds < lastTime) {
+      this.triggerLoadStream();
+    }
+  }
+
+  triggerLoadStream(): void {
+    if (this.video.paused) {
+      getVideoPauseButton()?.click();
+      getVideoPlayButton()?.click();
+    } else {
+      getVideoPlayButton()?.click();
+      getVideoPauseButton()?.click();
     }
   }
 
@@ -51,7 +75,12 @@ export class VideoBookmarkManager {
       ...this.bookmarksMap,
       [key]: { key, seconds: this.video.currentTime, description: enclosingCaption?.text || '' },
     };
-    this.updateProgressBookmark();
+    this.progressBookmark?.$set({ bookmarks: Object.values(this.bookmarksMap), videoDuration: this.video.duration });
+    saveTemporaryBookmarks({
+      lectureId: this.lectureId,
+      videoDuration: this.video.duration,
+      bookmarks: this.bookmarksMap,
+    });
   }
 
   insertProgressBookmarkComponent(): void {
@@ -60,16 +89,22 @@ export class VideoBookmarkManager {
       throw new Error('Cannot get video progress bar for bookmarks');
     }
     this.progressBookmark = new ProgressBookmark({ target: videoProgressBar });
-  }
-
-  updateProgressBookmark(): void {
-    if (!this.progressBookmark) {
-      return;
-    }
-    this.progressBookmark.$set({ bookmarks: Object.values(this.bookmarksMap), videoDuration: this.video.duration });
     this.progressBookmark.$on('bookmarkClick', (event: { detail: VideoBookmark }) => {
       this.jumpToBookmark(event.detail.key);
     });
+  }
+
+  async loadTemporaryBookmarks(): Promise<void> {
+    const lectureBookmark = await getTemporaryBookmarksFromStorage();
+    if (lectureBookmark?.lectureId === this.lectureId) {
+      this.bookmarksMap = lectureBookmark.bookmarks;
+      this.progressBookmark?.$set({
+        bookmarks: Object.values(this.bookmarksMap),
+        videoDuration: lectureBookmark.videoDuration,
+      });
+    } else {
+      saveTemporaryBookmarks(null);
+    }
   }
 
   dispose(): void {

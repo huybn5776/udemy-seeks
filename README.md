@@ -15,7 +15,7 @@ Enabled caption on course page, reload page, and press new **Forward with Captio
 
 - Seek to next/previous caption start time.
 - Medium/Long jump to jump 10 seconds and 1 minute.
-- Add temporary bookmark of video time.
+- Add temporary bookmark of video time, will be clear on load next lecture.
 - Always show video controls, or show progress bar only when always show.
 
 # Keybindings
