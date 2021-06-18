@@ -1,8 +1,9 @@
-import SeekCaptionButton from './components/SeekCaptionButton.svelte';
-import type { Settings } from './interfaces/settings';
-import { getSettings } from './utils/preference-utils';
+import SeekCaptionButton from '../components/SeekCaptionButton.svelte';
+import type { Feature } from '../interfaces/feature';
+import type { Settings } from '../interfaces/settings';
+import { getSettings } from '../utils/preference-utils';
 
-export class VideoControls {
+export class VideoControls implements Feature {
   seekCaptionButton: SeekCaptionButton | null = null;
 
   constructor(private readonly controlBar: HTMLElement) {

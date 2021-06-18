@@ -1,19 +1,20 @@
-import { handleActionMessage } from './actions/action-message';
-import { commandManager } from './commands/command-manager';
-import { defaultSettings } from './const/default-settings';
-import type { VttCue } from './interfaces/vtt-cue';
-import type { Subscription } from './observable';
+import { handleActionMessage } from '../actions/action-message';
+import { commandManager } from '../commands/command-manager';
+import { defaultSettings } from '../const/default-settings';
+import type { Feature } from '../interfaces/feature';
+import type { VttCue } from '../interfaces/vtt-cue';
+import type { Subscription } from '../observable';
 import {
   getDisplayingCaptionText,
   getGoToNextButton,
   getVideoPauseButton,
   getVideoPlayButton,
-} from './page-content-getter';
-import { findNextCaption, findPreviousCaption } from './utils/find-caption-cue';
-import { getSettings } from './utils/preference-utils';
-import { roundSeconds } from './utils/string-utils';
+} from '../page-content-getter';
+import { findNextCaption, findPreviousCaption } from '../utils/find-caption-cue';
+import { getSettings } from '../utils/preference-utils';
+import { roundSeconds } from '../utils/string-utils';
 
-export class VideoSeek {
+export class VideoSeek implements Feature {
   subscriptions: Subscription[] = [];
   mediumSeekSeconds = defaultSettings.mediumSeekSeconds;
   longSeekSeconds = defaultSettings.longSeekSeconds;

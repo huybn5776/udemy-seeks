@@ -1,14 +1,15 @@
-import { handleActionMessage } from './actions/action-message';
-import { commandManager } from './commands/command-manager';
-import ProgressBookmark from './components/ProgressBookmark.svelte';
-import type { VideoBookmark } from './interfaces/video-bookmark';
-import type { VttCue } from './interfaces/vtt-cue';
-import type { Subscription } from './observable';
-import { getVideoPauseButton, getVideoPlayButton, getVideoProgressBar } from './page-content-getter';
-import { findEnclosingCaption } from './utils/find-caption-cue';
-import { getTemporaryBookmarksFromStorage, saveTemporaryBookmarks } from './utils/storage-utils';
+import { handleActionMessage } from '../actions/action-message';
+import { commandManager } from '../commands/command-manager';
+import ProgressBookmark from '../components/ProgressBookmark.svelte';
+import type { Feature } from '../interfaces/feature';
+import type { VideoBookmark } from '../interfaces/video-bookmark';
+import type { VttCue } from '../interfaces/vtt-cue';
+import type { Subscription } from '../observable';
+import { getVideoPauseButton, getVideoPlayButton, getVideoProgressBar } from '../page-content-getter';
+import { findEnclosingCaption } from '../utils/find-caption-cue';
+import { getTemporaryBookmarksFromStorage, saveTemporaryBookmarks } from '../utils/storage-utils';
 
-export class VideoBookmarkManager {
+export class VideoBookmarkManager implements Feature {
   bookmarksMap: Record<string, VideoBookmark> = {};
   subscriptions: Subscription[] = [];
   progressBookmark: ProgressBookmark | null = null;
