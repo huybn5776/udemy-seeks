@@ -5,6 +5,7 @@ import { VideoCaptionState } from './enums/video-caption-state';
 import { VideoBookmarkManager } from './featrues/video-bookmark-manager';
 import { VideoControls } from './featrues/video-controls';
 import { VideoSeek } from './featrues/video-seek';
+import { VideoSwitcher } from './featrues/video-switcher';
 import type { Feature } from './interfaces/feature';
 import type { Caption, LectureData } from './interfaces/lecture-data';
 import { getControlBar, getCourseId, getCurrentLectureId, getSelectedCaptionVideoLabel } from './page-content-getter';
@@ -45,6 +46,7 @@ import { getCaptionCues, getLectureData } from './udemy-api';
       ...features,
       new VideoSeek(video, vttCues),
       new VideoBookmarkManager(video, vttCues, lectureId),
+      new VideoSwitcher(),
     ];
 
     const controlBar = getControlBar();

@@ -47,6 +47,10 @@ export function getGoToNextButton(): HTMLElement | null {
   return document.querySelector<HTMLElement>('[data-purpose=go-to-next]');
 }
 
+export function getGoToPreviousButton(): HTMLElement | null {
+  return document.querySelector<HTMLElement>('[data-purpose=go-to-previous]');
+}
+
 export function getVideoProgressBar(): HTMLElement | null {
   const videoProgressBar = document.querySelector('[data-purpose=video-progress-bar]');
   return Array.from(videoProgressBar?.children || []).find((element) =>
