@@ -61,7 +61,9 @@ import { VideoSeek } from './video-seek';
 
   initial();
 
-  (await waitForVideoElement()).focus();
+  const video = await waitForVideoElement();
+  video.focus();
+  video.blur();
 })();
 
 function findCaptionWithLabel(lectureData: LectureData, captionLabel: string): Caption | null {
