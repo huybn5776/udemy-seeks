@@ -35,8 +35,8 @@
   async function getSettings(): Promise<void> {
     const { settings, keybindings } = await getStorageValue();
 
-    settingsStore = settings ? writable(settings) : settingsStore;
-    keybindingsStore = keybindings ? writable(keybindings) : keybindingsStore;
+    settingsStore = settings ? writable({ ...$settingsStore, ...settings }) : settingsStore;
+    keybindingsStore = keybindings ? writable({ ...$keybindingsStore, ...keybindings }) : keybindingsStore;
 
     settingsStore.subscribe(debounceTime(saveSettings, 300));
     keybindingsStore.subscribe(debounceTime(saveKeybindings, 300));

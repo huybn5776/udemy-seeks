@@ -41,7 +41,7 @@ export const commandManager = (() => {
 })();
 
 export async function initializeHotkey(): Promise<void> {
-  const keybindings = (await getKeybindingsFromStorage()) || getDefaultKeybindings();
+  const keybindings = { ...getDefaultKeybindings(), ...(await getKeybindingsFromStorage()) };
   const hotkeys = (Object.entries(keybindings) as [[CommandType, string]])
     .map(([type, hotkey]) => ({ type, hotkey }))
     .filter(({ hotkey }) => !!hotkey);
