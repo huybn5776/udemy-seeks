@@ -12,6 +12,7 @@
   export let description: string | null | undefined;
 
   let recordHotkeySubscription: Subscription | null = null;
+  let inputElement: HTMLInputElement;
 
   $: inputValue = recordHotkeySubscription ? '' : value;
 
@@ -32,6 +33,7 @@
 
   function clearHotkey(): void {
     dispatch('value', '');
+    inputElement.focus();
   }
 </script>
 
@@ -44,6 +46,7 @@
   class="setting-input"
   value={inputValue}
   placeholder="Press hotkey"
+  bind:this={inputElement}
   on:focus={record}
   on:blur={stopRecordHotkey}
 />

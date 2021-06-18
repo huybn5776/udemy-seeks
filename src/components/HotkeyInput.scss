@@ -19,3 +19,9 @@
     background-color: rgba(gray, .4);
   }
 }
+
+.setting-input {
+  &:not(:focus)::placeholder {
+    color: transparent;
+  }
+}
