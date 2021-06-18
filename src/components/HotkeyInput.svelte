@@ -9,7 +9,7 @@
 
   export let command: CommandType;
   export let value: string;
-  export let description: string;
+  export let description: string | null | undefined;
 
   let recordHotkeySubscription: Subscription | null = null;
 
@@ -35,7 +35,7 @@
   }
 </script>
 
-<label for={command} class="setting-label" title={description}>
+<label for={command} class="setting-label" title={description || ''}>
   <slot />
 </label>
 <input

@@ -15,7 +15,7 @@
 
   let settingsStore: Writable<Settings> = writable(defaultSettings);
   let keybindingsStore: Writable<Record<CommandType, string>> = writable(getDefaultKeybindings());
-  let hotkeyRows: { command: CommandType; title: string; description: string; hotkey: string }[] = [];
+  let hotkeyRows: { command: CommandType; title: string; description?: string; hotkey: string }[] = [];
 
   onMount(() => {
     getSettings();
