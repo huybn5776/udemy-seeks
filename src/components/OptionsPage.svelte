@@ -5,7 +5,7 @@
 
   import { commands } from '../commands';
   import type { CommandType } from '../commands/command-manager';
-  import { getDefaultKeybindings, getPlatform } from '../commands/command-manager';
+  import { getDefaultKeybindings } from '../commands/command-manager';
   import { defaultSettings } from '../const/default-settings';
   import type { Settings } from '../interfaces/settings';
   import { debounceTime } from '../utils/debounce-time';
@@ -15,20 +15,19 @@
 
   let settingsStore: Writable<Settings> = writable(defaultSettings);
   let keybindingsStore: Writable<Record<CommandType, string>> = writable(getDefaultKeybindings());
-  let hotkeyRows: { command: CommandType; title: string; description?: string; hotkey: string }[] = [];
+  let hotkeyRows: { command: CommandType; title: string; description?: string; warring?: string }[] = [];
 
-  onMount(() => {
-    getSettings();
+  onMount(async () => {
+    await getSettings();
     initializeHotkeyRows();
+    markDuplicatedHotkey();
   });
 
   function initializeHotkeyRows(): void {
-    const platform = getPlatform();
     hotkeyRows = Object.entries(commands).map((entry) => {
       const command = entry[0] as CommandType;
       const { title, description } = entry[1];
-      const hotkey = entry[1].suggestedKey[platform];
-      return { command, title, description, hotkey };
+      return { command, title, description };
     });
   }
 
@@ -42,8 +41,24 @@
     keybindingsStore.subscribe(debounceTime(saveKeybindings, 300));
   }
 
-  function updateKeybinding(command: CommandType, hotkey: string): void {
+  function onKeybindingChange(command: CommandType, hotkey: string): void {
     keybindingsStore.set({ ...$keybindingsStore, [command]: hotkey } as Record<CommandType, string>);
+    markDuplicatedHotkey();
+  }
+
+  function markDuplicatedHotkey(): void {
+    const hotkeyUsedCount: Record<string, number> = {};
+    for (const hotkey of Object.values($keybindingsStore)) {
+      hotkeyUsedCount[hotkey] = (hotkeyUsedCount[hotkey] || 0) + 1;
+    }
+    const duplicatedHotkeys = Object.entries(hotkeyUsedCount)
+      .filter(([hotkey, count]) => hotkey && count > 1)
+      .map((entry) => entry[0]);
+
+    hotkeyRows = hotkeyRows.map((hotkeyRow) => {
+      const hotkey = $keybindingsStore[hotkeyRow.command];
+      return { ...hotkeyRow, warring: duplicatedHotkeys.includes(hotkey) ? 'Duplicated hotkey' : '' };
+    });
   }
 </script>
 
@@ -104,7 +119,8 @@
           command={hotkeyRow.command}
           value={$keybindingsStore[hotkeyRow.command]}
           description={hotkeyRow.description}
-          on:value={({ detail: hotkey }) => updateKeybinding(hotkeyRow.command, hotkey)}
+          warring={hotkeyRow.warring}
+          on:value={({ detail: hotkey }) => onKeybindingChange(hotkeyRow.command, hotkey)}
         >
           {hotkeyRow.title}
         </HotkeyInput>

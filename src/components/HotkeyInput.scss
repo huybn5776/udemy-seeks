@@ -20,6 +20,15 @@
   }
 }
 
+.setting-label {
+  justify-content: space-between;
+
+  &.warring::after {
+    margin-right: 8px;
+    content: '⚠️';
+  }
+}
+
 .setting-input {
   &:not(:focus)::placeholder {
     color: transparent;
