@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "svelte-check & rollup -c",
+    "build": "svelte-check && rollup -c && cd public && web-ext build --overwrite-dest",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear",
     "start:firefox": "web-ext run --source-dir ./public/"
