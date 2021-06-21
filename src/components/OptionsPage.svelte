@@ -13,8 +13,10 @@
   import { getStorageValue } from '../utils/storage-utils';
   import HotkeyInput from './HotkeyInput.svelte';
 
+  const defaultKeybindings = getDefaultKeybindings();
+
   let settingsStore: Writable<Settings> = writable(defaultSettings);
-  let keybindingsStore: Writable<Record<CommandType, string>> = writable(getDefaultKeybindings());
+  let keybindingsStore: Writable<Record<CommandType, string>> = writable(defaultKeybindings);
   let hotkeyRows: { command: CommandType; title: string; description?: string; warring?: string }[] = [];
 
   onMount(async () => {
@@ -48,7 +50,8 @@
 
   function markDuplicatedHotkey(): void {
     const hotkeyUsedCount: Record<string, number> = {};
-    for (const hotkey of Object.values($keybindingsStore)) {
+    for (const command of Object.keys(defaultKeybindings) as CommandType[]) {
+      const hotkey = $keybindingsStore[command];
       hotkeyUsedCount[hotkey] = (hotkeyUsedCount[hotkey] || 0) + 1;
     }
     const duplicatedHotkeys = Object.entries(hotkeyUsedCount)
