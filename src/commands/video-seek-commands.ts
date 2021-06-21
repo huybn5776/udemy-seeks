@@ -36,4 +36,9 @@ export const videoSeekCommands = {
     title: 'Copy caption',
     description: 'Copy the caption displayed on the screen.',
   } as CommandInfo,
+  translateCaption: {
+    suggestedKey: { windows: 'ctrl+alt+shift+l', macOs: 'command+option+shift+l' },
+    title: 'Translate caption',
+    description: 'Open google translate page with current caption, need to allow pop-ups.',
+  } as CommandInfo,
 };

@@ -18,6 +18,7 @@ Enabled caption on course page, reload page, and press new **Forward with Captio
 - Go to next/previous lecture hotkey.
 - Add temporary bookmark of video time, will be clear on load next lecture.
 - Always show video controls, or show progress bar only when always show.
+- Copy current caption, open translate page with current caption.  
 
 # Keybindings
 

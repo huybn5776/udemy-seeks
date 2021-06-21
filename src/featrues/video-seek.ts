@@ -33,6 +33,7 @@ export class VideoSeek implements Feature {
       commandManager.onCommand('seekForwardLong', () => this.seekVideoTime(this.longSeekSeconds)),
       commandManager.onCommand('seekBackwardLong', () => this.seekVideoTime(-this.longSeekSeconds)),
       commandManager.onCommand('copyCaption', () => this.copyCaption()),
+      commandManager.onCommand('translateCaption', () => this.translateCaption()),
       handleActionMessage('jumpToTime', ({ seconds }) => this.gotoTime(seconds)),
     ];
     getSettings().then((settings) => {
@@ -99,6 +100,14 @@ export class VideoSeek implements Feature {
     const text = this.getCurrentOrLastCaptionText();
     if (text) {
       navigator.clipboard.writeText(text);
+    }
+  }
+
+  translateCaption(): void {
+    const text = this.getCurrentOrLastCaptionText();
+    if (text) {
+      window.open(`https://translate.google.com/?sl=auto&text=${encodeURI(text)}`, '_blank')?.focus();
+      getVideoPauseButton()?.click();
     }
   }
 
