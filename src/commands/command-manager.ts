@@ -46,14 +46,16 @@ export async function initializeHotkey(): Promise<void> {
     .map(([type, hotkey]) => ({ type, hotkey }))
     .filter(({ hotkey }) => !!hotkey);
 
+  const mousetrap = new Mousetrap(document.body);
   for (const { type, hotkey } of hotkeys) {
-    Mousetrap.bind(hotkey, (event) => {
+    mousetrap.bind(hotkey, (event) => {
       if (isFocusingAnyInputElement()) {
         return;
       }
       const handled = commandManager.dispatch({ type });
       if (handled) {
         event.preventDefault();
+        event.stopPropagation();
       }
     });
   }

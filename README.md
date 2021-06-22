@@ -4,6 +4,8 @@ Add a seek to next caption, time bookmark and other time-seek related feature to
 
 Enabled caption on course page, reload page, and press new **Forward with Caption** button or hotkey (`Ctrl`+→) to seek to next caption.
 
+You can also override udemy default 'forward 5s' shortcut by setting next caption hotkey to 'right'.
+
 ---
 
 [<img src="other/chrome-web-store-badge.png" alt="for Chrome" height="80px">](https://chrome.google.com/webstore/detail/udemy-seeks/gdekabefnhhpnianhbcokcngmjhjnoel)
