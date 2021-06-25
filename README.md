@@ -2,9 +2,9 @@
 
 Add a seek to next caption, time bookmark and other time-seek related feature to Udemy course page.
 
-Enabled caption on course page, reload page, and press new **Forward with Caption** button or hotkey (`Ctrl`+→) to seek to next caption.
+Enabled caption on course page, reload page, and press new **Forward with Caption** button or hotkey (<kbd>Ctrl</kbd>+<kbd>→</kbd>) to seek to next caption.
 
-You can also override udemy default 'forward 5s' shortcut by setting next caption hotkey to 'right'.
+You can also override udemy default 'forward 5s' shortcut by setting next caption hotkey to <kbd>→</kbd>.
 
 ---
 
@@ -24,13 +24,16 @@ You can also override udemy default 'forward 5s' shortcut by setting next captio
 
 # Keybindings
 
-- `Ctrl`+→/⌘→: Seek to next caption
-- `Ctrl`+←/⌘←: Seek to previous caption
-- `Ctrl`+`Shift`+→/⌘⇧→: Medium forward jump
-- `Ctrl`+`Shift`←/⌘⇧←: Medium backward jump
-- `Ctrl`+`Alt`+`Shift`+→/⌘⌃⇧→: Long forward jump
-- `Ctrl`+`Alt`+`Shift`+←/⌘⌃⇧←: Long backward jump
-- `Ctrl`+`Alt`+`Shift`+c/⌘⌥⇧c: Copy current caption
-- `Shift`+1~5: Jump to bookmark #1~5
-- `Ctrl`+`Shift`+1~5/⌥⇧+1~5: Set bookmark #1~5
+- <kbd>Ctrl</kbd><kbd>→</kbd> / <kbd>⌘</kbd><kbd>→</kbd>: Seek to next caption
+- <kbd>Ctrl</kbd><kbd>←</kbd> / <kbd>⌘</kbd><kbd>←</kbd>: Seek to previous caption
+- <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>→</kbd> / <kbd>⌘</kbd><kbd>⇧</kbd><kbd>→</kbd>: Medium forward jump
+- <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>←</kbd> / <kbd>⌘</kbd><kbd>⇧</kbd><kbd>←</kbd>: Medium backward jump
+- <kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>Shift</kbd><kbd>→</kbd> / <kbd>⌘</kbd><kbd>⌃</kbd><kbd>⇧</kbd><kbd>→</kbd>: Long forward jump
+- <kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>Shift</kbd><kbd>←</kbd> / <kbd>⌘</kbd><kbd>⌃</kbd><kbd>⇧</kbd><kbd>←</kbd>: Long backward jump
+- <kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>Shift</kbd><kbd>c</kbd> / <kbd>⌘</kbd><kbd>⌥</kbd><kbd>⇧</kbd><kbd>c</kbd>: Copy current caption
+- <kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>Shift</kbd><kbd>l</kbd> / <kbd>⌘</kbd><kbd>⌥</kbd><kbd>⇧</kbd><kbd>l</kbd>: Open translate page with current caption  
+- <kbd>Shift</kbd><kbd>1 ~ 5</kbd>: Jump to bookmark #1~5
+- <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>1 ~ 5</kbd> / <kbd>⌥</kbd><kbd>⇧</kbd><kbd>1 ~ 5</kbd>: Set bookmark #1~5
+
+Note: If video controls bar keep showing on every keypress or caption, please click any space area of control bar to resolve it.
 
