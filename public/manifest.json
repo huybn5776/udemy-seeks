@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Udemy seeks",
-  "version": "1.0.7",
+  "version": "1.0.11",
   "description": "Add a seek to next caption, time bookmark and other time-seek related feature to Udemy course page.",
   "homepage_url": "https://github.com/huybn5776/udemy-seeks",
   "icons": {
@@ -27,7 +27,7 @@
   "content_scripts": [
     {
       "matches": [
-        "*://www.udemy.com/course/*"
+        "*://*.udemy.com/course/*"
       ],
       "js": [
         "build/content-script.js"

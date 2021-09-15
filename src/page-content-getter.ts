@@ -52,10 +52,7 @@ export function getGoToPreviousButton(): HTMLElement | null {
 }
 
 export function getVideoProgressBar(): HTMLElement | null {
-  const videoProgressBar = document.querySelector('[data-purpose=video-progress-bar]');
-  return Array.from(videoProgressBar?.children || []).find((element) =>
-    element.className.includes('progress-bar--progress-holder'),
-  ) as HTMLElement | null;
+  return document.querySelector('[data-purpose=video-progress-bar]');
 }
 
 export function getControlBar(): HTMLElement | null {
